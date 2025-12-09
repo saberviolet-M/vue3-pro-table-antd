@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProTable Basic Demo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ant-design-vue@4.x/dist/reset.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .demo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #1890ff;
+      margin-bottom: 24px;
+    }
+    .code-block {
+      background: #f6f8fa;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 20px 0;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .feature-card {
+      background: #fafafa;
+      padding: 16px;
+      border-radius: 6px;
+      border-left: 4px solid #1890ff;
+    }
+    .feature-card h3 {
+      margin-top: 0;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>ProTable Component Demo</h1>
+
+    <div id="app">
+      <!-- Vue app will be mounted here -->
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>🚀 Out of the Box</h3>
+        <p>Ready to use with minimal configuration. Just provide columns and a request function.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔍 Built-in Search</h3>
+        <p>Advanced search form with validation, filtering, and customizable components.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📊 Smart Pagination</h3>
+        <p>Built-in pagination with customizable options and seamless integration.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎨 Fully Customizable</h3>
+        <p>Flexible column configuration, custom rendering, and theme support.</p>
+      </div>
+    </div>
+
+    <h2>Basic Usage Example</h2>
+    <div class="code-block">
+      <pre><code>&lt;template&gt;
+  &lt;ProTable
+    :columns="columns"
+    :request="fetchData"
+  /&gt;
+&lt;/template&gt;
+
+&lt;script setup lang="ts"&gt;
+import { ProTable } from '@your-org/pro-table'
+
+const columns = [
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    hideInSearch: true,
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    name: 'name',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    name: 'status',
+  },
+]
+
+const fetchData = async (params) => {
+  const response = await api.getList(params)
+  return {
+    success: true,
+    data: response.list,
+    total: response.total,
+  }
+}
+&lt;/script&gt;</code></pre>
+    </div>
+
+    <h2>Advanced Usage with Column Builder</h2>
+    <div class="code-block">
+      <pre><code>import { ColumnBuilder } from '@your-org/pro-table'
+
+const columns = [
+  ColumnBuilder.create()
+    .title('User ID')
+    .dataIndex('id')
+    .hideInSearch(true)
+    .width(100)
+    .align('center')
+    .build(),
+
+  ColumnBuilder.create()
+    .title('Username')
+    .dataIndex('username')
+    .name('username')
+    .required(true)
+    .placeholder('Enter username')
+    .build(),
+
+  ColumnBuilder.create()
+    .title('Actions')
+    .dataIndex('actions')
+    .valueType('option')
+    .hideInSearch(true)
+    .customRender(({ record }) => {
+      return h('div', [
+        h('a', { onClick: () => edit(record) }, 'Edit'),
+        h('a', { onClick: () => delete(record) }, 'Delete'),
+      ])
+    })
+    .build(),
+]</code></pre>
+    </div>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "vue": "https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.esm-browser.js",
+        "ant-design-vue": "https://cdn.jsdelivr.net/npm/ant-design-vue@4.x/dist/antd.esm.js",
+        "@your-org/pro-table": "./dist/pro-table.es.js"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import { createApp } from 'vue'
+    import Antd from 'ant-design-vue'
+    import { ProTable, ColumnBuilder } from '@your-org/pro-table'
+
+    // Mock data
+    const mockData = Array.from({ length: 50 }, (_, i) => ({
+      id: i + 1,
+      name: `User ${i + 1}`,
+      email: `user${i + 1}@example.com`,
+      status: i % 3,
+      createTime: new Date(Date.now() - i * 86400000).toISOString(),
+    }))
+
+    // Create columns using ColumnBuilder
+    const columns = [
+      ColumnBuilder.create()
+        .title('ID')
+        .dataIndex('id')
+        .hideInSearch(true)
+        .width(80)
+        .align('center')
+        .build(),
+
+      ColumnBuilder.create()
+        .title('Name')
+        .dataIndex('name')
+        .name('name')
+        .order(1)
+        .required(true)
+        .placeholder('Enter name')
+        .width(150)
+        .build(),
+
+      ColumnBuilder.create()
+        .title('Email')
+        .dataIndex('email')
+        .name('email')
+        .placeholder('Enter email')
+        .width(200)
+        .build(),
+
+      ColumnBuilder.create()
+        .title('Status')
+        .dataIndex('status')
+        .name('status')
+        .width(120)
+        .customRender(({ record }) => {
+          const statusMap = {
+            0: { text: 'Inactive', color: 'red' },
+            1: { text: 'Active', color: 'green' },
+            2: { text: 'Pending', color: 'orange' },
+          }
+          const status = statusMap[record.status] || { text: 'Unknown', color: 'gray' }
+          return `<span style="color: ${status.color}; font-weight: 500;">${status.text}</span>`
+        })
+        .build(),
+
+      ColumnBuilder.create()
+        .title('Created At')
+        .dataIndex('createTime')
+        .hideInSearch(true)
+        .width(180)
+        .customRender(({ record }) => {
+          return new Date(record.createTime).toLocaleDateString()
+        })
+        .build(),
+    ]
+
+    // Mock request function
+    const fetchData = async (params) => {
+      console.log('Request params:', params)
+
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      const { page_num = 1, page_size = 10, name, email, status } = params
+
+      // Filter data
+      let filteredData = [...mockData]
+      if (name) {
+        filteredData = filteredData.filter(item => item.name.toLowerCase().includes(name.toLowerCase()))
+      }
+      if (email) {
+        filteredData = filteredData.filter(item => item.email.toLowerCase().includes(email.toLowerCase()))
+      }
+      if (status !== undefined) {
+        filteredData = filteredData.filter(item => item.status === Number(status))
+      }
+
+      // Paginate
+      const start = (page_num - 1) * page_size
+      const end = start + page_size
+      const pageData = filteredData.slice(start, end)
+
+      return {
+        success: true,
+        data: pageData,
+        total: filteredData.length,
+      }
+    }
+
+    // Create Vue app
+    const app = createApp({
+      template: `
+        <div>
+          <h2 style="margin-bottom: 20px; color: #333;">Live Demo</h2>
+          <ProTable
+            :columns="columns"
+            :request="fetchData"
+            :tableOptions="{ rowKey: 'id', bordered: true }"
+            :pageOptions="{ pageSize: 10, showSizeChanger: true }"
+            :searchOptions="{ colOptions: { sm: 24, md: 12, lg: 8 } }"
+          />
+        </div>
+      `,
+      setup() {
+        return { columns, fetchData }
+      }
+    })
+
+    app.use(Antd)
+    app.component('ProTable', ProTable)
+    app.mount('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{
+  "name": "@your-org/pro-table",
+  "version": "1.0.0-alpha.1",
+  "description": "A professional table component for Vue 3 with built-in search, pagination, and advanced features",
+  "keywords": [
+    "vue",
+    "vue3",
+    "table",
+    "pro-table",
+    "ant-design-vue",
+    "data-table",
+    "search-table",
+    "pagination"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/pro-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/pro-table/issues"
+  },
+  "homepage": "https://github.com/your-org/pro-table#readme",
+  "main": "dist/pro-table.umd.js",
+  "module": "dist/pro-table.es.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/pro-table.es.js",
+      "require": "./dist/pro-table.umd.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npm run build:types",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint . --ext .vue,.js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
+    "release": "npm run build && npm publish --access public",
+    "release:alpha": "npm run build && npm publish --tag alpha --access public",
+    "release:beta": "npm run build && npm publish --tag beta --access public"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0",
+    "ant-design-vue": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ant-design-vue": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.21",
+    "@types/node": "^20.0.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/test-utils": "^2.0.0",
+    "@vue/tsconfig": "^0.4.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "jsdom": "^22.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.0.0",
+    "vitest": "^0.34.0",
+    "vue-tsc": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
