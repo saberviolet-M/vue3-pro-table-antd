@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/saberviolet-M/vue3-pro-table.git"
+    "url": "git+https://github.com/saberviolet-M/vue3-pro-table.git"
   },
   "bugs": {
     "url": "https://github.com/saberviolet-M/vue3-pro-table/issues"
