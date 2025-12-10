@@ -1,15 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { createApp } from 'vue'
 import Antd from 'ant-design-vue'
 import { ProTable } from '../src/export'
-
-// 创建测试用的 Vue 应用
-const createTestApp = (component: unknown, props: Record<string, unknown> = {}) => {
-  const app = createApp(component as any, props)
-  app.use(Antd)
-  return app
-}
 
 describe('ProTable Components', () => {
   describe('ProTable', () => {

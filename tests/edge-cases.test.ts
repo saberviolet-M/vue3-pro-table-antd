@@ -33,7 +33,7 @@ describe('ProTable Edge Cases', () => {
     it('should handle request function throwing error', async () => {
       const mockRequest = vi.fn().mockRejectedValue(new Error('Network error'))
 
-      const _wrapper = mount(ProTable, {
+      mount(ProTable, {
         props: {
           columns: [{ title: 'Name', dataIndex: 'name' }],
           request: mockRequest,
@@ -196,7 +196,7 @@ describe('ProTable Edge Cases', () => {
         })
       })
 
-      const _wrapper = mount(ProTable, {
+      mount(ProTable, {
         props: {
           columns: [{ title: 'ID', dataIndex: 'id' }],
           request: mockRequest,

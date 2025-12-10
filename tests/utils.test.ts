@@ -162,6 +162,7 @@ describe('utils', () => {
     })
 
     it('should reject non-array input', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result = validateColumns({} as unknown as any[])
       expect(result.valid).toBe(false)
       expect(result.errors).toContain('columns 必须是一个数组')
