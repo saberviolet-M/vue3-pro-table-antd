@@ -170,7 +170,9 @@
 
     const result = await safeExecute(async () => {
       // 验证表单（如果有）
-      await customSearchRef?.value?.formRef?.validate?.()
+      if (customSearchRef?.value?.formRef?.validate) {
+        await customSearchRef.value.formRef.validate()
+      }
 
       // 执行请求
       const res = await props.request!(toRaw(params.value))

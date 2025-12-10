@@ -8,10 +8,8 @@ describe('ProTable Edge Cases', () => {
     it('should handle request function returning empty data', async () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
-        data: {
-          data: [],
-          total: 0,
-        },
+        data: [],
+        total: 0,
       })
 
       const wrapper = mount(ProTable, {
@@ -229,6 +227,7 @@ describe('ProTable Edge Cases', () => {
     it('should handle form validation before request', async () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
+        success: true,
         data: [],
         total: 0,
       })
@@ -246,6 +245,7 @@ describe('ProTable Edge Cases', () => {
           ],
           request: mockRequest,
           showSearch: true,
+          manualRequest: true,
         },
         global: {
           plugins: [Antd],

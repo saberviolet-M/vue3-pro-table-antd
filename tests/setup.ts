@@ -23,8 +23,15 @@ if (typeof window !== 'undefined') {
     writable: true,
     value: () => ({
       getPropertyValue: (prop: string) => {
+        // 模拟常见的样式属性
         if (prop === 'width') return '100px'
         if (prop === 'height') return '100px'
+        if (prop === 'padding') return '0px'
+        if (prop === 'margin') return '0px'
+        if (prop === 'border') return '0px'
+        if (prop === 'overflow') return 'visible'
+        if (prop === 'overflow-x') return 'visible'
+        if (prop === 'overflow-y') return 'visible'
         return ''
       },
     }),
@@ -37,7 +44,31 @@ if (typeof window !== 'undefined') {
       width: '100px',
       height: '100px',
       overflow: '',
+      overflowX: '',
+      overflowY: '',
     },
+  })
+
+  // 解决 document.documentElement.style 问题
+  Object.defineProperty(document.documentElement, 'style', {
+    writable: true,
+    value: {
+      width: '100px',
+      height: '100px',
+      overflow: '',
+      overflowX: '',
+      overflowY: '',
+    },
+  })
+
+  // 解决 ant-design-vue getScrollBarSize 问题
+  Object.defineProperty(document.documentElement, 'clientWidth', {
+    writable: true,
+    value: 100,
+  })
+  Object.defineProperty(document.body, 'clientWidth', {
+    writable: true,
+    value: 100,
   })
 
   // 添加其他必要的浏览器 API
