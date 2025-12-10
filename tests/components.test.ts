@@ -100,6 +100,7 @@ describe('ProTable Components', () => {
             { title: 'Name', dataIndex: 'name' },
           ],
           page: { current: 1, pageSize: 10, total: 2 },
+          tableOptions: {},
         },
         global: {
           plugins: [Antd],
