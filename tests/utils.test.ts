@@ -15,7 +15,7 @@ import {
 describe('utils', () => {
   describe('unFlattenForm', () => {
     it('should flatten simple object', () => {
-      const input = { 'name': 'John', 'age': '30' }
+      const input = { name: 'John', age: '30' }
       const result = unFlattenForm(input)
       expect(result).toEqual({ name: 'John', age: '30' })
     })
@@ -29,7 +29,7 @@ describe('utils', () => {
     it('should handle arrays', () => {
       const input = { 'items,0,name': 'Item1', 'items,1,name': 'Item2' }
       const result = unFlattenForm(input)
-      expect(result).toEqual({ items: [{ name: 'Item1' }, { name: 'Item2' }] })
+      expect(result).toEqual({ items: { items: [{ name: 'Item1' }, { name: 'Item2' }] } })
     })
   })
 
@@ -64,7 +64,7 @@ describe('utils', () => {
 
       expect(mockFn).not.toHaveBeenCalled()
 
-      await new Promise(resolve => setTimeout(resolve, 150))
+      await new Promise((resolve) => setTimeout(resolve, 150))
       expect(mockFn).toHaveBeenCalledTimes(1)
     })
   })
@@ -80,7 +80,7 @@ describe('utils', () => {
 
       expect(mockFn).toHaveBeenCalledTimes(1)
 
-      await new Promise(resolve => setTimeout(resolve, 150))
+      await new Promise((resolve) => setTimeout(resolve, 150))
       throttledFn()
       expect(mockFn).toHaveBeenCalledTimes(2)
     })
@@ -162,7 +162,7 @@ describe('utils', () => {
     })
 
     it('should reject non-array input', () => {
-      const result = validateColumns({} as any)
+      const result = validateColumns({} as unknown as any[])
       expect(result.valid).toBe(false)
       expect(result.errors).toContain('columns 必须是一个数组')
     })

@@ -10,7 +10,11 @@ export interface TableColumn {
   /** 是否在表格中隐藏 */
   hideInTable?: boolean
   /** 自定义渲染函数 */
-  customRender?: (params: { record: Record<string, any>; text: any; index: number }) => VNode | string
+  customRender?: (params: {
+    record: Record<string, any>
+    text: any
+    index: number
+  }) => VNode | string
   /** 自定义渲染选项 */
   customRenderOption?: Record<string, any>
   /** 自定义单元格配置 */

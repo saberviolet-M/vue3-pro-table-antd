@@ -9,22 +9,22 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: [],
-        total: 0
+        total: 0,
       })
 
       const wrapper = mount(ProTable, {
         props: {
           columns: [{ title: 'Name', dataIndex: 'name' }],
           request: mockRequest,
-          manualRequest: false
+          manualRequest: false,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
       // 等待初始请求完成
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
 
       expect(mockRequest).toHaveBeenCalled()
       expect(wrapper.find('.ant-table-empty').exists()).toBe(true)
@@ -33,18 +33,18 @@ describe('ProTable Edge Cases', () => {
     it('should handle request function throwing error', async () => {
       const mockRequest = vi.fn().mockRejectedValue(new Error('Network error'))
 
-      const wrapper = mount(ProTable, {
+      const _wrapper = mount(ProTable, {
         props: {
           columns: [{ title: 'Name', dataIndex: 'name' }],
           request: mockRequest,
-          manualRequest: false
+          manualRequest: false,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
       expect(mockRequest).toHaveBeenCalled()
     })
 
@@ -52,18 +52,18 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: [{ id: 1, name: 'Test' }],
-        total: 1
+        total: 1,
       })
 
       const wrapper = mount(ProTable, {
         props: {
           columns: [{ title: 'Name', dataIndex: 'name' }],
           request: mockRequest,
-          manualRequest: true
+          manualRequest: true,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
       // 初始不应该调用
@@ -80,24 +80,26 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: [{ id: 1, name: 'John' }],
-        total: 1
+        total: 1,
       })
 
       const wrapper = mount(ProTable, {
         props: {
-          columns: [{
-            title: 'Name',
-            dataIndex: 'name',
-            customRender: ({ text }: { text: string }) => `Hello ${text}`
-          }],
-          request: mockRequest
+          columns: [
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              customRender: ({ text }: { text: string }) => `Hello ${text}`,
+            },
+          ],
+          request: mockRequest,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
       expect(wrapper.find('.ant-table').exists()).toBe(true)
     })
 
@@ -105,7 +107,7 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: [{ id: 1, name: 'John', age: 30 }],
-        total: 1
+        total: 1,
       })
 
       const wrapper = mount(ProTable, {
@@ -113,16 +115,16 @@ describe('ProTable Edge Cases', () => {
           columns: [
             { title: 'ID', dataIndex: 'id' },
             { title: 'Name', dataIndex: 'name', hideInTable: true },
-            { title: 'Age', dataIndex: 'age' }
+            { title: 'Age', dataIndex: 'age' },
           ],
-          request: mockRequest
+          request: mockRequest,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
       // 应该只显示 ID 和 Age 列
       const headers = wrapper.findAll('.ant-table-thead th')
       expect(headers).toHaveLength(2) // ID 和 Age
@@ -134,14 +136,14 @@ describe('ProTable Edge Cases', () => {
           columns: [
             { title: 'ID', dataIndex: 'id', name: 'id' },
             { title: 'Name', dataIndex: 'name', name: 'name', hideInSearch: true },
-            { title: 'Age', dataIndex: 'age', name: 'age' }
+            { title: 'Age', dataIndex: 'age', name: 'age' },
           ],
           request: vi.fn(),
-          showSearch: true
+          showSearch: true,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
       // 搜索表单应该只显示 ID 和 Age 字段
@@ -155,7 +157,7 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: Array.from({ length: 20 }, (_, i) => ({ id: i + 1, name: `Item ${i + 1}` })),
-        total: 100
+        total: 100,
       })
 
       const wrapper = mount(ProTable, {
@@ -165,15 +167,15 @@ describe('ProTable Edge Cases', () => {
           pageOptions: {
             current: 1,
             pageSize: 20,
-            total: 100
-          }
+            total: 100,
+          },
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
 
       // 模拟点击第二页
       const paginationItems = wrapper.findAll('.ant-pagination-item')
@@ -190,24 +192,24 @@ describe('ProTable Edge Cases', () => {
         return Promise.resolve({
           success: true,
           data: Array.from({ length: 50 }, (_, i) => ({ id: i + 1 })),
-          total: 100
+          total: 100,
         })
       })
 
-      const wrapper = mount(ProTable, {
+      const _wrapper = mount(ProTable, {
         props: {
           columns: [{ title: 'ID', dataIndex: 'id' }],
           request: mockRequest,
           pageOptions: {
-            pageSize: 50
-          }
+            pageSize: 50,
+          },
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
       expect(mockRequest).toHaveBeenCalled()
     })
   })
@@ -217,24 +219,26 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: [],
-        total: 0
+        total: 0,
       })
 
       const wrapper = mount(ProTable, {
         props: {
-          columns: [{
-            title: 'Name',
-            dataIndex: 'name',
-            name: 'name',
-            required: true,
-            rules: [{ required: true, message: '请输入姓名' }]
-          }],
+          columns: [
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              name: 'name',
+              required: true,
+              rules: [{ required: true, message: '请输入姓名' }],
+            },
+          ],
           request: mockRequest,
-          showSearch: true
+          showSearch: true,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
       // 尝试搜索而不填写必填字段
@@ -252,14 +256,15 @@ describe('ProTable Edge Cases', () => {
       const wrapper = mount(ProTable, {
         props: {
           columns: [
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore - 故意测试无效配置
-            { invalidProp: 'test' }
+            { invalidProp: 'test' },
           ],
-          request: vi.fn()
+          request: vi.fn(),
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
       // 组件应该仍然渲染
@@ -270,23 +275,23 @@ describe('ProTable Edge Cases', () => {
       const mockRequest = vi.fn().mockResolvedValue({
         success: true,
         data: [{ id: 1, name: 'Test' }],
-        total: 1
+        total: 1,
       })
 
       const wrapper = mount(ProTable, {
         props: {
           columns: [
             { title: 'ID' }, // 没有 dataIndex
-            { title: 'Name', dataIndex: 'name' }
+            { title: 'Name', dataIndex: 'name' },
           ],
-          request: mockRequest
+          request: mockRequest,
         },
         global: {
-          plugins: [Antd]
-        }
+          plugins: [Antd],
+        },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100))
       expect(wrapper.find('.ant-table').exists()).toBe(true)
     })
   })

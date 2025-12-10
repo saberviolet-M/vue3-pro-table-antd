@@ -5,8 +5,8 @@ import Antd from 'ant-design-vue'
 import { ProTable } from '../src/export'
 
 // 创建测试用的 Vue 应用
-const createTestApp = (component: any, props: any = {}) => {
-  const app = createApp(component, props)
+const createTestApp = (component: unknown, props: Record<string, unknown> = {}) => {
+  const app = createApp(component as any, props)
   app.use(Antd)
   return app
 }

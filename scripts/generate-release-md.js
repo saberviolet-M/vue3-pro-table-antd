@@ -5,13 +5,13 @@
  * 用法: node scripts/generate-release-md.js
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
 // 读取 package.json 获取版本信息
-const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
-const version = packageJson.version;
-const packageName = packageJson.name;
+const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'))
+const version = packageJson.version
+const packageName = packageJson.name
 
 // Release markdown 模板
 const releaseMarkdown = `## 🚀 新版本亮点 v${version}
@@ -68,16 +68,16 @@ pnpm add ${packageName}
 
 ---
 
-**🤖 此版本由 Claude Code 协助生成**`;
+**🤖 此版本由 Claude Code 协助生成**`
 
-console.log('='.repeat(80));
-console.log(`GitHub Release Markdown for v${version}`);
-console.log('='.repeat(80));
-console.log('\n复制以下内容到 GitHub Release 描述区域:\n');
-console.log(releaseMarkdown);
-console.log('\n' + '='.repeat(80));
-console.log('\n发布信息:');
-console.log(`- Tag: v${version}`);
-console.log(`- 标题: v${version} - 类型支持、测试增强和文档完善`);
-console.log(`- 目标分支: main`);
-console.log('='.repeat(80));
+console.log('='.repeat(80))
+console.log(`GitHub Release Markdown for v${version}`)
+console.log('='.repeat(80))
+console.log('\n复制以下内容到 GitHub Release 描述区域:\n')
+console.log(releaseMarkdown)
+console.log('\n' + '='.repeat(80))
+console.log('\n发布信息:')
+console.log(`- Tag: v${version}`)
+console.log(`- 标题: v${version} - 类型支持、测试增强和文档完善`)
+console.log(`- 目标分支: main`)
+console.log('='.repeat(80))

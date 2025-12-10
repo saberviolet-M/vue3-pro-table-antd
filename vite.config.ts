@@ -9,7 +9,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/export.ts'),
       name: 'ProTable',
-      fileName: (format) => `pro-table.${format}.js`
+      fileName: (format) => `pro-table.${format}.js`,
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
@@ -19,17 +19,17 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
           'ant-design-vue': 'AntDesignVue',
-          lodash: '_'
+          lodash: '_',
         },
-        exports: 'named'
-      }
+        exports: 'named',
+      },
     },
-    sourcemap: true
+    sourcemap: true,
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
-    }
+      '@': resolve(__dirname, 'src'),
+    },
   },
   test: {
     globals: true,
@@ -38,14 +38,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'dist/',
-        'tests/',
-        'examples/',
-        '**/*.d.ts',
-        '**/types.ts'
-      ]
-    }
-  }
+      exclude: ['node_modules/', 'dist/', 'tests/', 'examples/', '**/*.d.ts', '**/types.ts'],
+    },
+  },
 })
